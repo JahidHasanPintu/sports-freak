@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>PHP CRUD MYSQL</title>
+    <title>Admin</title>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <!-- BOOTSTRAP 4 -->
     <link rel="stylesheet" href="https://bootswatch.com/4/yeti/bootstrap.min.css">
@@ -13,6 +13,9 @@
 
     <nav class="navbar navbar-dark bg-dark">
       <div class="container">
-        <a class="navbar-brand" href="index.php">PHP MySQL CRUD</a>
+      <a class="navbar-brand" href="home.php">Sports Freak Admin</a><span class="navbar-text">
+      <?php echo "Welcome " . $_SESSION['username'] ; ?>
+    </span>
       </div>
+      <a href="logout.php" class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</a>
     </nav>

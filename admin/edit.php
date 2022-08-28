@@ -1,15 +1,19 @@
 <?php
 include("db.php");
 $title = '';
+$category ='';
+$picture = '';
 $description= '';
 
 if  (isset($_GET['id'])) {
   $id = $_GET['id'];
-  $query = "SELECT * FROM task WHERE id=$id";
+  $query = "SELECT * FROM news WHERE id=$id";
   $result = mysqli_query($conn, $query);
   if (mysqli_num_rows($result) == 1) {
     $row = mysqli_fetch_array($result);
     $title = $row['title'];
+    $category = $row['category'];
+    $picture = $row['picture'];
     $description = $row['description'];
   }
 }
@@ -17,13 +21,15 @@ if  (isset($_GET['id'])) {
 if (isset($_POST['update'])) {
   $id = $_GET['id'];
   $title= $_POST['title'];
+  $category= $_POST['category'];
+  $picture= $_POST['picture'];
   $description = $_POST['description'];
 
-  $query = "UPDATE task set title = '$title', description = '$description' WHERE id=$id";
+  $query = "UPDATE news set title = '$title',category = '$category',picture = '$picture', description = '$description' WHERE id=$id";
   mysqli_query($conn, $query);
-  $_SESSION['message'] = 'Task Updated Successfully';
+  $_SESSION['message'] = 'News Updated Successfully';
   $_SESSION['message_type'] = 'warning';
-  header('Location: index.php');
+  header('Location:home.php');
 }
 
 ?>
@@ -35,6 +41,12 @@ if (isset($_POST['update'])) {
       <form action="edit.php?id=<?php echo $_GET['id']; ?>" method="POST">
         <div class="form-group">
           <input name="title" type="text" class="form-control" value="<?php echo $title; ?>" placeholder="Update Title">
+        </div>
+        <div class="form-group">
+          <input name="category" type="text" class="form-control" value="<?php echo $category; ?>" placeholder="Update category">
+        </div>
+        <div class="form-group">
+          <input name="picture" type="text" class="form-control" value="<?php echo $picture; ?>" placeholder="Update picture">
         </div>
         <div class="form-group">
         <textarea name="description" class="form-control" cols="30" rows="10"><?php echo $description;?></textarea>

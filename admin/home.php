@@ -1,4 +1,13 @@
 <?php include("db.php"); ?>
+<?php 
+
+// session_start();
+
+if (!isset($_SESSION['username'])) {
+    header("Location: index.php");
+}
+
+?>
 
 <?php include('includes/header.php'); ?>
 
@@ -14,18 +23,24 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <?php session_unset(); } ?>
+      <?php } ?>
 
       <!-- ADD TASK FORM -->
       <div class="card card-body">
         <form action="save_task.php" method="POST">
           <div class="form-group">
-            <input type="text" name="title" class="form-control" placeholder="Task Title" autofocus>
+            <input type="text" name="title" class="form-control" placeholder="News Title" autofocus>
           </div>
           <div class="form-group">
-            <textarea name="description" rows="2" class="form-control" placeholder="Task Description"></textarea>
+            <input type="text" name="category" class="form-control" placeholder="Category" autofocus>
           </div>
-          <input type="submit" name="save_task" class="btn btn-success btn-block" value="Save Task">
+          <div class="form-group">
+            <input type="text" name="image" class="form-control" placeholder="Paste image link here" autofocus>
+          </div>
+          <div class="form-group">
+            <textarea name="description" rows="2" class="form-control" placeholder="News Description"></textarea>
+          </div>
+          <input type="submit" name="save_task" class="btn btn-success btn-block" value="Upload News">
         </form>
       </div>
     </div>
@@ -35,21 +50,23 @@
           <tr>
             <th>Title</th>
             <th>Description</th>
-            <th>Created At</th>
+            <th>Category</th>
+            <th>Image</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
 
           <?php
-          $query = "SELECT * FROM task";
+          $query = "SELECT * FROM news";
           $result_tasks = mysqli_query($conn, $query);    
 
           while($row = mysqli_fetch_assoc($result_tasks)) { ?>
           <tr>
             <td><?php echo $row['title']; ?></td>
             <td><?php echo $row['description']; ?></td>
-            <td><?php echo $row['created_at']; ?></td>
+            <td><?php echo $row['category']; ?></td>
+            <td><?php echo $row['picture']; ?></td>
             <td>
               <a href="edit.php?id=<?php echo $row['id']?>" class="btn btn-secondary">
                 <i class="fas fa-marker"></i>
